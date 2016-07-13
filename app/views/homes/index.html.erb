@@ -7,7 +7,7 @@
 
       <div class="panel-body text-center">
         <% if current_user %>
-          <%= link_to "Go to Your Dashboard", user_path(current_user), class: "btn btn-primary" %>
+          <%= link_to "Go to Your Dashboard", dashboard_path, class: "btn btn-primary" %>
         <% else %>
           <%= link_to "Login Using GitHub", github_login_path, class: "btn btn-primary" %>
         <% end %>
