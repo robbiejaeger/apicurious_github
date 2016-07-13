@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'homes#index'
 
-  resource :dashboard, only: [:show], controller: "users"
+  resource :dashboard, only: [:show] do
+    resources :repos, only: [:index]
+  end
 
   get '/auth/github', as: :github_login
   get '/auth/github/callback', to: "sessions#create"

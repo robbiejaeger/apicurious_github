@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class DashboardsController < ApplicationController
 
   def show
     @basic_info = BasicInfo.user_basic_info(current_user)
