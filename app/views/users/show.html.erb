@@ -35,16 +35,21 @@
     </div>
   </div>
 
-
-
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Recent Activity Summary</h3>
       </div>
-      <div class="panel-body">
-        Panel content
-      </div>
+
+      <ul class="list-group">
+        <% @user_activity.each do |event| %>
+          <li class="list-group-item">
+            <p><%= event.type %></p>
+            <p><%= event.created_at %></p>
+            <p><%= event.repo["name"] %></p>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>
