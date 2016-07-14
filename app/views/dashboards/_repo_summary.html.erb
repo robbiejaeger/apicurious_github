@@ -1,0 +1,18 @@
+<div class="col-md-5">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Your Public Repositories</h3>
+    </div>
+
+    <ul class="list-group">
+      <% repos.each do |repo| %>
+        <%= link_to repo.svn_url, class: "list-group-item" do %>
+          <%= repo.name %>
+          <span class="badge"><%= pluralize(repo.changes_elapsed_time, "day") %> ago</span>
+        <% end %>
+      <% end %>
+
+      <%= link_to "See All of Your Public Repositories", dashboard_repos_path, class: "list-group-item text-center" %>
+    </ul>
+  </div>
+</div>

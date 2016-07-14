@@ -20,8 +20,8 @@ class RepositoryService
     response = @connection.post do |req|
       req.url '/user/repos'
       req.headers["Authorization"] = "token #{current_user.oauth_token}"
-      json_hash = params.select {|key, value| ["name"].include?(key) }
-      req.body = json_hash.to_json
+      params_hash = params.select {|key, value| ["name"].include?(key) }
+      req.body = params_hash.to_json
     end
   end
 
