@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resource :dashboard, only: [:show] do
-    resources :repos, only: [:index]
+    resources :repos, only: [:index, :new, :create]
   end
 
   get '/auth/github', as: :github_login
