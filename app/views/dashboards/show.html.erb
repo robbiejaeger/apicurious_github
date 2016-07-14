@@ -4,7 +4,7 @@
       <%= image_tag @basic_info.avatar_url, class: "img-rounded" %>
       <div class="caption">
         <h3 class="text-center"><%= current_user.login %></h3>
-        <p class="text-center">Joined on <%= Date.parse(@basic_info.created_at) %></p>
+        <p class="text-center">Joined on <%= Date.parse(@basic_info.created_at).strftime("%B %e, %Y") %></p>
         <table class="table table-condensed">
           <tr>
             <th class="text-center">Followers</th>
@@ -29,8 +29,13 @@
 
       <ul class="list-group">
         <% @repos.each do |repo| %>
-          <%= link_to repo.name, repo.svn_url, class: "list-group-item" %>
+          <%= link_to repo.svn_url, class: "list-group-item" do %>
+            <%= repo.name %>
+            <span class="badge"><%= pluralize(repo.changes_elapsed_time, "day") %> ago</span>
+          <% end %>
         <% end %>
+
+        <%= link_to "See All of Your Public Repositories", dashboard_repos_path, class: "list-group-item text-center" %>
       </ul>
     </div>
   </div>
@@ -44,12 +49,25 @@
       <ul class="list-group">
         <% @user_activity.each do |event| %>
           <li class="list-group-item">
-            <p><%= event.type %></p>
-            <p><%= event.created_at %></p>
-            <p><%= event.repo["name"] %></p>
+            <p><%= event.type %> (<%= Date.parse(event.created_at).strftime("%b %e") %>)</p>
+            <p>Repository: <%= event.repo["name"] %></p>
           </li>
         <% end %>
       </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Create New Repo</h3>
+      </div>
+
+      <div class="panel-body text-center">
+        <%= link_to "Create Repository", new_dashboard_repo_path, class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
 </div>

@@ -24,4 +24,12 @@ class Repository < OpenStruct
       Repository.new(repo_hash)
     end
   end
+
+  def self.create_repo(params, current_user)
+    new_repo_hash = service.post_new_repo(params, current_user)
+  end
+
+  def changes_elapsed_time
+    (Date.today - Date.parse(self.updated_at)).to_i
+  end
 end
