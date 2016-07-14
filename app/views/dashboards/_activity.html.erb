@@ -1,0 +1,16 @@
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Recent Activity Summary</h3>
+    </div>
+
+    <ul class="list-group">
+      <% user_activity.each do |event| %>
+        <li class="list-group-item">
+          <p><%= event.type %> (<%= Date.parse(event.created_at).strftime("%b %e") %>)</p>
+          <p>Repository: <%= event.repo["name"] %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
