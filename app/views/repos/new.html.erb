@@ -1,6 +1,25 @@
-<%= form_tag '/dashboard/repos' do %>
-    <%= label_tag "name" %>
-    <%= text_field_tag "name" %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
 
-    <%= submit_tag "Create New Repository", class: "btn btn-primary" %>
-<% end -%>
+      <div class="panel-heading">
+        <h3 class="panel-title text-center">New Repository</h3>
+      </div>
+
+      <div class="panel-body">
+        <%= form_tag '/dashboard/repos' do %>
+          <div class="form-group">
+            <%= label_tag "name" %>
+            <%= text_field_tag "name", "", class: "form-control" %>
+          </div>
+
+          <%= submit_tag "Create New Repository", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer text-center">
+        <%= link_to "Back to Your Dashbaord", dashboard_path %>
+      </div>
+    </div>
+  </div>
+</div>
