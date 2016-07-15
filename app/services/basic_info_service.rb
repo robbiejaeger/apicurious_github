@@ -1,12 +1,13 @@
 class BasicInfoService
 
-  def initialize
+  def initialize(user)
+    @user = user
     @connection = Faraday.new("https://api.github.com")
+    @connection.headers["Authorization"] = "token #{@user.oauth_token}"
   end
 
-  def get_basic_info(current_user)
-    @connection.headers["Authorization"] = "token #{current_user.oauth_token}"
-    response = @connection.get("/users/#{current_user.login}")
+  def get_basic_info
+    response = @connection.get("/users/#{@user.login}")
     parse(response)
   end
 
