@@ -1,7 +1,7 @@
 class Activity < OpenStruct
 
   def self.service
-    @@service ||= ActivityService.new
+    @service ||= ActivityService.new
   end
 
   def self.user_activity(current_user)

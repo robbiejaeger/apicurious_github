@@ -1,7 +1,7 @@
 class Repository < OpenStruct
 
   def self.service
-    @@service ||= RepositoryService.new
+    @service ||= RepositoryService.new
   end
 
   def self.user_repos(current_user)

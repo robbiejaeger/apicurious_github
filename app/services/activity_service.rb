@@ -4,9 +4,14 @@ class ActivityService
     @connection = Faraday.new("https://api.github.com")
   end
 
-  def get_user_activity(current_user)
-    @connection.headers["Authorization"] = "token #{current_user.oauth_token}"
-    response = @connection.get("/users/#{current_user.login}/events")
+  def setup_user_auth(user)
+    @user = user
+    @connection.headers["Authorization"] = "token #{@user.oauth_token}"
+  end
+  
+  def get_user_activity(user)
+    setup_user_auth(user)
+    response = @connection.get("/users/#{user.login}/events")
     parse(response)
   end
 

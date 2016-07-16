@@ -4,22 +4,27 @@ class RepositoryService
     @connection = Faraday.new("https://api.github.com")
   end
 
-  def get_all_repos_for_user(current_user)
-    @connection.headers["Authorization"] = "token #{current_user.oauth_token}"
-    response = @connection.get("/users/#{current_user.login}/repos")
+  def setup_user_auth(user)
+    @user = user
+    @connection.headers["Authorization"] = "token #{@user.oauth_token}"
+  end
+
+  def get_all_repos_for_user(user)
+    setup_user_auth(user)
+    response = @connection.get("/users/#{user.login}/repos")
     parse(response)
   end
 
-  def get_starred_repos(current_user)
-    @connection.headers["Authorization"] = "token #{current_user.oauth_token}"
-    response = @connection.get("/users/#{current_user.login}/starred")
+  def get_starred_repos(user)
+    setup_user_auth(user)
+    response = @connection.get("/users/#{user.login}/starred")
     parse(response)
   end
 
-  def post_new_repo(params, current_user)
+  def post_new_repo(params, user)
     response = @connection.post do |req|
       req.url '/user/repos'
-      req.headers["Authorization"] = "token #{current_user.oauth_token}"
+      req.headers["Authorization"] = "token #{user.oauth_token}"
       params_hash = params.select {|key, value| ["name", "description"].include?(key) }
       req.body = params_hash.to_json
     end
